@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="12dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/user_segment_followers_label"
+        android:text="Followers"
+        android:textAllCaps="true"
+        android:letterSpacing="0.2"
+        android:textSize="12sp"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/user_segment_following_label"
+        android:textSize="12sp"
+        android:text="Following"
+        android:textAllCaps="true"
+        android:letterSpacing="0.2"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    <View
+        android:visibility="gone"
+        android:background="@drawable/bg_shape_round"
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/user_segment_followers_label"/>
+
+    <View
+        android:visibility="gone"
+        android:background="@drawable/bg_shape_round"
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/user_segment_following_label"/>
+
+  <TextView
+      android:id="@+id/user_segment_follower_count"
+        android:gravity="center"
+        android:textAlignment="gravity"
+        android:textColor="@color/colorPrimary"
+        android:text="0"
+        android:textSize="18sp"
+      android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/user_segment_followers_label"
+        app:layout_constraintEnd_toEndOf="@id/user_segment_followers_label"
+        app:layout_constraintStart_toStartOf="@id/user_segment_followers_label"/>
+
+    <TextView
+        android:id="@+id/user_segment_following_count"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textAlignment="gravity"
+        android:textColor="@color/colorPrimary"
+        android:text="0"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/user_segment_following_label"
+        app:layout_constraintEnd_toEndOf="@id/user_segment_following_label"
+        app:layout_constraintStart_toStartOf="@id/user_segment_following_label"/>
+
+</android.support.constraint.ConstraintLayout>

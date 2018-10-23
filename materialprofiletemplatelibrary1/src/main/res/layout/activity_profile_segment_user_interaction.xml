@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.eudycontreras.materialprofiletemplatelibrary1.curstomViews.SquareFrameLayout
+        android:id="@+id/subscribe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_shape_oval"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:elevation="1dp"
+        android:translationZ="12dp"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <View
+            android:id="@+id/subscribe_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/ic_add_alert" />
+    </com.eudycontreras.materialprofiletemplatelibrary1.curstomViews.SquareFrameLayout>
+
+
+    <com.eudycontreras.materialprofiletemplatelibrary1.curstomViews.SquareFrameLayout
+        android:id="@+id/report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_shape_oval"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:elevation="1dp"
+        android:translationZ="12dp"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/write_review"
+        app:layout_constraintStart_toEndOf="@id/subscribe">
+
+        <View
+            android:id="@+id/report_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/ic_report" />
+    </com.eudycontreras.materialprofiletemplatelibrary1.curstomViews.SquareFrameLayout>
+
+    <com.eudycontreras.materialprofiletemplatelibrary1.curstomViews.SquareFrameLayout
+        android:id="@+id/write_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_shape_oval"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:elevation="1dp"
+        android:translationZ="12dp"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/report"
+        app:layout_constraintEnd_toStartOf="@id/endorse">
+
+        <View
+            android:id="@+id/write_review_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/ic_review" />
+    </com.eudycontreras.materialprofiletemplatelibrary1.curstomViews.SquareFrameLayout>
+
+    <com.eudycontreras.materialprofiletemplatelibrary1.curstomViews.SquareFrameLayout
+        android:id="@+id/endorse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_shape_oval"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:elevation="1dp"
+        android:translationZ="12dp"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <View
+            android:id="@+id/endorse_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/ic_trophy" />
+    </com.eudycontreras.materialprofiletemplatelibrary1.curstomViews.SquareFrameLayout>
+
+
+</android.support.constraint.ConstraintLayout>
