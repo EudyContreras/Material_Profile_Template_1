@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_gravity="bottom"
-                android:background="@color/colorPrimaryDark"
+                android:background="@drawable/bg_stats_segment"
                 app:layout_anchor="@id/activity_user_context_container"
                 app:layout_anchorGravity="bottom|center_horizontal"
                 app:layout_scrollFlags="snap">

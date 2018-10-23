@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
@@ -39,7 +40,9 @@ abstract class ProfileActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
         private const val MAX_PERCENTAGE_TO_ANIMATE_AVATAR = 60f
     }
 
-    private var isAvatarShown = true
+    var isAvatarShown = true
+
+    var isAllowHeaderStretch : Boolean  = true
 
     private var displayMetrics = DisplayMetrics()
 
@@ -277,6 +280,8 @@ abstract class ProfileActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
         tabsAdapter.notifyDataSetChanged()
     }
 
+    fun getFab() : FloatingActionButton = user_message
+
     fun getProfileController() : ProfileController  = controller
 
     fun getViewPager() : ViewPager = pager
@@ -290,7 +295,7 @@ abstract class ProfileActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
     }
 
     override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
-        if(!revealEnded){
+        if(!revealEnded || !isAllowHeaderStretch){
             return super.dispatchTouchEvent(event)
         }
 
@@ -306,9 +311,6 @@ abstract class ProfileActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
                         backdrop_temp.visibility = View.INVISIBLE
                         backdrop.visibility = View.VISIBLE
                     }
-
-                   /* Log.d("SCALE", "total scale amount = $scale")
-                    Log.d("TRANSLATION", "total translation Y distance = $translationY")*/
 
                     app_bar.animate()
                             .translationY(translationY)

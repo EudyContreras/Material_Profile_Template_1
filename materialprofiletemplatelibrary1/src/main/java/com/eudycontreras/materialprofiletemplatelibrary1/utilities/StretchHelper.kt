@@ -1,6 +1,5 @@
 package com.eudycontreras.materialprofiletemplatelibrary1.utilities
 
-import android.util.Log
 import android.view.MotionEvent
 import com.eudycontreras.materialprofiletemplatelibrary1.OnStretchReleased
 import com.eudycontreras.materialprofiletemplatelibrary1.StretchEvaluator
@@ -18,11 +17,11 @@ import com.eudycontreras.materialprofiletemplatelibrary1.map
  */
 class StretchHelper{
 
+    private var scrollingUp : Boolean = false
+
     private var startingPointY : Float = 0f
     private var lastPointY : Float = 0f
     private var dragY: Float = 0f
-
-    private var scrollingUp : Boolean = false
 
     var height: Int = 0
 
@@ -32,60 +31,53 @@ class StretchHelper{
 
         when (action) {
             MotionEvent.ACTION_DOWN -> {
-                startingPointY = event.y
+                startingPointY = if(scrollOffsetY >= 0){
+                    event.y
+                }else{
+                    Float.MIN_VALUE
+                }
+                dragY = 0f
                 return (dragY > 0)
             }
             MotionEvent.ACTION_MOVE -> {
 
                 val y = event.y
 
-                dragY += (y - startingPointY)
+               if(scrollOffsetY < 0){
+                   startingPointY = y
+                   dragY = 0f
+               }
 
-                dragY = clamp(dragY, 0f, height.toFloat())
+                dragY += (y - startingPointY)
 
                 startingPointY = y
 
-                if(scrollOffsetY == 0){
-                    val rawScale = if(scrollingUp){
-                        map(dragY, 0f, height.toFloat(), 1f, 2.5f)
-                    }else{
-                        map(dragY, 0f, height.toFloat(), 1f, 2.5f)
-                    }
+                val rawScale =  map(dragY, 0f, height.toFloat(), 1f, 2.5f)
 
-                    val tensionRangeY = if(scrollingUp){
-                        map(dragY, 0f, height.toFloat(), 1f, 5f)
-                    }else{
-                        map(dragY, 0f, height.toFloat(), 1f, 5f)
-                    }
+                val tensionRangeY = map(dragY, 0f, height.toFloat(), 1f, 5f)
 
-                    val tensionScale = map(dragY, 0f, height.toFloat(), 0f, 0.5f)
+                val translationY = clamp((dragY / tensionRangeY),0f,height.toFloat())
 
-                    val translationY = (dragY / tensionRangeY)
+                if(scrollOffsetY >= 0){
 
-                    val scale = (rawScale - tensionScale)
-
-                    stretchEvaluator(translationY, scale)
-
+                    stretchEvaluator(translationY, rawScale)
                 }
+
                 scrollingUp = lastPointY > startingPointY
 
                 lastPointY = y
 
                 return if( dragY <= 0f){
-                    Log.d("DRAG", "ZERO $y")
                     false
-                } else if(scrollingUp && dragY <= 0f){
-                    Log.d("DRAG", "ZERO $y")
-                    false
-                } else{
-                    true
-                }
+                } else
+                    !(scrollingUp && dragY <= 0f)
             }
 
             else -> {
                 dragY = 0f
 
                 startingPointY = event.y
+                lastPointY = event.y
 
                 released()
 

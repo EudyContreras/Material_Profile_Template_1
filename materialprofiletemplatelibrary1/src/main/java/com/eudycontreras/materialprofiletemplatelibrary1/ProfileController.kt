@@ -1,6 +1,6 @@
 package com.eudycontreras.materialprofiletemplatelibrary1
 
-import android.widget.Toast
+import android.support.design.widget.Snackbar
 import com.eudycontreras.materialprofiletemplatelibrary1.interfaces.ProfileInterface
 
 /**
@@ -22,31 +22,31 @@ class ProfileController(private val activity: ProfileActivity){
     }
 
     fun handleEndorseUser() {
-        Toast.makeText(activity, "Endorse user action", Toast.LENGTH_SHORT).show()
+        Snackbar.make(activity.getFab(),"Endorse user action", Snackbar.LENGTH_SHORT).show()
     }
 
     fun handleReportUser() {
-        Toast.makeText(activity, "Report user action", Toast.LENGTH_SHORT).show()
+        Snackbar.make(activity.getFab(),"Report user action",Snackbar.LENGTH_SHORT).show()
     }
 
     fun handleReviewUser() {
-        Toast.makeText(activity, "Review user action", Toast.LENGTH_SHORT).show()
+        Snackbar.make(activity.getFab(),"Review user action",Snackbar.LENGTH_SHORT).show()
     }
 
     fun handleSubscribeToUser() {
-        Toast.makeText(activity, "Subscribe to user action", Toast.LENGTH_SHORT).show()
+        Snackbar.make(activity.getFab(),"Subscribe user action",Snackbar.LENGTH_SHORT).show()
     }
 
     fun handleOpenChat() {
-        Toast.makeText(activity, "Message user action", Toast.LENGTH_SHORT).show()
+        Snackbar.make(activity.getFab(),"Message user action",Snackbar.LENGTH_SHORT).show()
     }
 
     fun handleMoreAction() {
-        Toast.makeText(activity, "Context action", Toast.LENGTH_SHORT).show()
+        Snackbar.make(activity.getFab(),"Context action",Snackbar.LENGTH_SHORT).show()
     }
 
     fun handleSeeRankAction() {
-        Toast.makeText(activity, "See ranks action", Toast.LENGTH_SHORT).show()
+        Snackbar.make(activity.getFab(),"See rank action",Snackbar.LENGTH_SHORT).show()
     }
 
     fun handleSeeFollowers() {
