@@ -13,8 +13,9 @@ import android.graphics.Bitmap
  */
 data class UserInformation(
         val userId : Int,
-        val userName: String = "N/A",
-        val userBio: String = "N/A",
+        val userName: String,
+        val userBio: String? = null,
         val followerCount : Int = 0,
         val followingCount : Int = 0,
-        val userImage: Bitmap? = null)
+        val userImage: Bitmap? = null,
+        val backdropImage: Bitmap? = null)
