@@ -14,6 +14,5 @@ import android.support.v4.app.Fragment
  */
 abstract class ProfileFragment : Fragment() {
 
-    abstract fun setName(name : String)
-    abstract fun getName() : String
+    var name : String = ""
 }

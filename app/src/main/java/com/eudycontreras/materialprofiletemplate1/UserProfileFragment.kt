@@ -19,8 +19,6 @@ import com.eudycontreras.materialprofiletemplatelibrary1.ProfileFragment
 class UserProfileFragment : ProfileFragment() {
 
 
-    private lateinit var name : String
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(R.layout.fragment_user_profile, container, false) as RecyclerView
         view.adapter = FakePageAdapter(20)
@@ -31,19 +29,12 @@ class UserProfileFragment : ProfileFragment() {
         super.onActivityCreated(savedInstanceState)
     }
 
-    override fun setName(name : String) {
-        this.name = name
-    }
-
-    override fun getName(): String {
-        return name
-    }
 
     companion object {
         @JvmStatic
         fun newInstance(name : String) : ProfileFragment{
             val fragment = UserProfileFragment()
-            fragment.setName(name)
+            fragment.name = name
             return fragment
         }
     }

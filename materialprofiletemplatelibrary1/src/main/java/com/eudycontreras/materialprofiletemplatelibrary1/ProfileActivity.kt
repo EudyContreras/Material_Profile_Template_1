@@ -418,7 +418,7 @@ abstract class ProfileActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
         }
 
         override fun getPageTitle(position: Int): CharSequence? {
-            return fragments[position].getName()
+            return fragments[position].name
         }
     }
 }
