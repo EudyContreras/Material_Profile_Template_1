@@ -14,7 +14,6 @@ import com.eudycontreras.materialprofiletemplatelibrary1.models.UserReview
  * @version 1.0
  */
 interface ProfileInterface {
-
     fun onSubscribe()
     fun onUnSubscribe()
     fun onEndorsed()

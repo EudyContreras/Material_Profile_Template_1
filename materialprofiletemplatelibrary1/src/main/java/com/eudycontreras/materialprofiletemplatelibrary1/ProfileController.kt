@@ -12,7 +12,7 @@ import com.eudycontreras.materialprofiletemplatelibrary1.interfaces.ProfileInter
  * @author  Eudy Contreras
  * @version 1.0
  */
-class ProfileController(private val activity: ProfileActivity){
+internal class ProfileController(private val activity: ProfileActivity){
 
 
     private var profileInterface : ProfileInterface? = null
@@ -39,6 +39,13 @@ class ProfileController(private val activity: ProfileActivity){
 
     fun handleOpenChat() {
         Snackbar.make(activity.getFab(),"Message user action",Snackbar.LENGTH_SHORT).show()
+       /* val center = AbsolutePositionUtility.getDistanceToCenter(activity.dimensions,activity.user_message)
+        val anim = ArcTranslateAnimation(0f, center[0], 0f, center[1], ArcTranslateAnimation.Side.LEFT)
+        anim.duration = 250
+        anim.fillAfter = true
+        anim.interpolator = DecelerateInterpolator(2f)
+        activity.user_message.startAnimation(anim)*/
+
     }
 
     fun handleMoreAction() {

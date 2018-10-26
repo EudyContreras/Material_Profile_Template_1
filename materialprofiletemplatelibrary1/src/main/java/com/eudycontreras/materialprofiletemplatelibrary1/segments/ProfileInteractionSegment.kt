@@ -14,7 +14,7 @@ import com.eudycontreras.materialprofiletemplatelibrary1.R
  * @author  Eudy Contreras
  * @version 1.0
  */
-class ProfileInteractionSegment(private val activity: ProfileActivity){
+internal class ProfileInteractionSegment(private val activity: ProfileActivity){
 
     private lateinit var reportUserContainer: View
     private lateinit var endorseUserContainer: View
@@ -43,15 +43,19 @@ class ProfileInteractionSegment(private val activity: ProfileActivity){
 
     fun registerListeners() {
         ProfileUtility.addIconTouchFeedback(reportUserContainer, reportUserContainer, 1f, reportUserContainer.translationZ, 1f, 1f, 0.90f, 0.95f, 150)
-        this.reportUserContainer.setOnClickListener { activity.getProfileController().handleReportUser() }
+        this.reportUserContainer.setOnClickListener { if(!activity.blockInput)activity.getProfileController().handleReportUser() }
 
         ProfileUtility.addIconTouchFeedback(endorseUserContainer, endorseUserContainer, 1f, endorseUserContainer.translationZ, 1f, 1f, 0.90f, 0.95f, 150)
-        this.endorseUserContainer.setOnClickListener { activity.getProfileController().handleEndorseUser() }
+        this.endorseUserContainer.setOnClickListener { if(!activity.blockInput)activity.getProfileController().handleEndorseUser() }
 
         ProfileUtility.addIconTouchFeedback(reviewUserContainer, reviewUserContainer, 1f, reviewUserContainer.translationZ, 1f, 1f, 0.90f, 0.95f, 150)
-        this.reviewUserContainer.setOnClickListener{ activity.getProfileController().handleReviewUser() }
+        this.reviewUserContainer.setOnClickListener{ if(!activity.blockInput)activity.getProfileController().handleReviewUser() }
 
         ProfileUtility.addIconTouchFeedback(subscribeToUserContainer, subscribeToUserContainer, 1f, subscribeToUserContainer.translationZ, 1f, 1f, 0.90f, 0.95f, 150)
-        this.subscribeToUserContainer.setOnClickListener{ activity.getProfileController().handleSubscribeToUser() }
+        this.subscribeToUserContainer.setOnClickListener{ if(!activity.blockInput)activity.getProfileController().handleSubscribeToUser() }
+    }
+
+    fun show(state: Boolean) {
+        parentView.visibility = if(state) View.VISIBLE else View.GONE
     }
 }

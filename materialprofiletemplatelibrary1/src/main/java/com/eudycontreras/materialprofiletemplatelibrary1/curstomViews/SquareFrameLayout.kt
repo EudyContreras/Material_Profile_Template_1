@@ -14,7 +14,7 @@ import android.widget.FrameLayout
  * @author  Eudy Contreras
  * @version 1.0
  */
-class SquareFrameLayout : FrameLayout {
+internal class SquareFrameLayout : FrameLayout {
 
     constructor(context: Context) : super(context)
 

@@ -15,7 +15,7 @@ import com.eudycontreras.materialprofiletemplatelibrary1.R
  * @author  Eudy Contreras
  * @version 1.0
  */
-class ProfileStatisticsSegment(private val activity: ProfileActivity){
+internal class ProfileStatisticsSegment(private val activity: ProfileActivity){
 
     private lateinit var followersLabel: TextView
     private lateinit var followingLabel: TextView
@@ -23,7 +23,10 @@ class ProfileStatisticsSegment(private val activity: ProfileActivity){
     private lateinit var followersCount: TextView
     private lateinit var followingCount: TextView
 
+    private lateinit var parentView: View
+
     fun initViews(parentView: View) {
+        this.parentView = parentView
         this.followersLabel = parentView.findViewById(R.id.user_segment_followers_label)
         this.followingLabel = parentView.findViewById(R.id.user_segment_following_label)
 
@@ -33,15 +36,19 @@ class ProfileStatisticsSegment(private val activity: ProfileActivity){
 
     fun registerListeners() {
         ProfileUtility.addIconTouchFeedback(followersLabel, followersLabel, 1f, followersLabel.translationZ, 1f, 1f, 0.90f, 0.95f, 150)
-        this.followersLabel.setOnClickListener { activity.getProfileController().handleSeeFollowers() }
+        this.followersLabel.setOnClickListener { if(!activity.blockInput)activity.getProfileController().handleSeeFollowers() }
 
         ProfileUtility.addIconTouchFeedback(followingLabel, followingLabel, 1f, followingLabel.translationZ, 1f, 1f, 0.90f, 0.95f, 150)
-        this.followingLabel.setOnClickListener { activity.getProfileController().handleSeeFollowing() }
+        this.followingLabel.setOnClickListener { if(!activity.blockInput)activity.getProfileController().handleSeeFollowing() }
 
         ProfileUtility.addIconTouchFeedback(followersCount, followersCount, 1f, followersCount.translationZ, 1f, 1f, 0.90f, 0.95f, 150)
-        this.followersCount.setOnClickListener{ activity.getProfileController().handleSeeFollowers() }
+        this.followersCount.setOnClickListener{ if(!activity.blockInput)activity.getProfileController().handleSeeFollowers() }
 
         ProfileUtility.addIconTouchFeedback(followingCount, followingCount, 1f, followingCount.translationZ, 1f, 1f, 0.90f, 0.95f, 150)
-        this.followingCount.setOnClickListener{ activity.getProfileController().handleSeeFollowing() }
+        this.followingCount.setOnClickListener{ if(!activity.blockInput)activity.getProfileController().handleSeeFollowing() }
+    }
+
+    fun show(state: Boolean){
+        parentView.visibility = if(state) View.VISIBLE else View.GONE
     }
 }

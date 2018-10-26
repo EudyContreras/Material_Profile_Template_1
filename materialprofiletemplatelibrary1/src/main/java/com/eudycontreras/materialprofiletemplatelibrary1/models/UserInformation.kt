@@ -18,4 +18,9 @@ data class UserInformation(
         val followerCount : Int = 0,
         val followingCount : Int = 0,
         val userImage: Bitmap? = null,
-        val backdropImage: Bitmap? = null)
+        val backdropImage: Bitmap? = null){
+
+    constructor():this(-1,"")
+
+    constructor(userId : Int, userName: String):this(userId,userName,null)
+}

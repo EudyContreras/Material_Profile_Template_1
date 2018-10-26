@@ -15,7 +15,7 @@ import com.facebook.rebound.*
  * @author  Eudy Contreras
  * @version 1.0
  */
-class ProfileUtility {
+internal class ProfileUtility {
 
 
     companion object {
@@ -23,7 +23,7 @@ class ProfileUtility {
 
         private val springSystem: SpringSystem = SpringSystem.create()
 
-        fun createSpringAnimation(start: Float, end: Float, time: Int, distance: Float, friction: Float, tension: Float, springValue: SpringValue, onEnd: Action?) {
+        fun createSpringAnimation(start: Float, end: Float, time: Long, distance: Float, friction: Float, tension: Float, springValue: SpringValue, onEnd: Action?) {
             val spring = springSystem.createSpring()
 
             spring.addListener(object : SimpleSpringListener() {
@@ -77,7 +77,7 @@ class ProfileUtility {
                         touchView.performClick()
                         true
                     }
-                    MotionEvent.ACTION_OUTSIDE -> {
+                    MotionEvent.ACTION_OUTSIDE ,MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_MOVE-> {
                         effectView
                                 .animate()
                                 .alpha(defaultAlpha!!)

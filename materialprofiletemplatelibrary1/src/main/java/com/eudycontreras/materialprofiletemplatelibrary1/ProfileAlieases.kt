@@ -12,17 +12,17 @@ import android.util.DisplayMetrics
  * @author  Eudy Contreras
  * @version 1.0
  */
-typealias SpringValue = (Float) -> Unit
+internal typealias SpringValue = (Float) -> Unit
 
-typealias StretchEvaluator = (Float,Float) -> Unit
+internal typealias StretchEvaluator = (Float,Float) -> Unit
 
-typealias OnStretchReleased =()-> Unit
+internal typealias OnStretchReleased =()-> Unit
 
-typealias Action = ()-> Unit
+internal typealias Action = ()-> Unit
 
-fun clamp(value: Float, min: Float, max: Float) : Float =  if (value < min) min else if (value > max) max else value
+internal fun clamp(value: Float, min: Float, max: Float) : Float =  if (value < min) min else if (value > max) max else value
 
-fun map(
+internal fun map(
         value: Float,
         fromLow: Float,
         fromHigh: Float,
@@ -34,14 +34,14 @@ fun map(
     return toLow + valueScale * toRangeSize
 }
 
-fun convertDpToPixel(context: Context, dp: Float): Float {
+internal fun convertDpToPixel(context: Context, dp: Float): Float {
     val resources = context.resources
     val metrics = resources.displayMetrics
     return dp * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
 }
 
 
-fun convertPixelsToDp(context: Context, px: Float): Float {
+internal fun convertPixelsToDp(context: Context, px: Float): Float {
     val resources = context.resources
     val metrics = resources.displayMetrics
     return px / (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)

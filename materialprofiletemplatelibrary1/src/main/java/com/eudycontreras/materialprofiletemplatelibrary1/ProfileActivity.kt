@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
@@ -17,6 +18,7 @@ import android.view.animation.AnticipateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
+import com.eudycontreras.materialbottomnavigationtemplatelibrary.models.Dimension
 import com.eudycontreras.materialprofiletemplatelibrary1.models.UserInformation
 import com.eudycontreras.materialprofiletemplatelibrary1.segments.ProfileInteractionSegment
 import com.eudycontreras.materialprofiletemplatelibrary1.segments.ProfileStatisticsSegment
@@ -64,13 +66,26 @@ abstract class ProfileActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
     private var scrollOffsetY : Int = 0
     private var maxScrollSize: Int = 0
 
-    private var percentage: Float = 0.toFloat()
-    private var topAreaSize: Float = 0.toFloat()
-    private var bottomAreaSize: Float = 0.toFloat()
+    private var percentage: Float = 0f
+    private var topAreaSize: Float = 0f
+    private var bottomAreaSize: Float = 0f
 
     private var revealEnded = false
 
+    internal var blockInput = true
+
     private var stretched = false
+
+    internal val dimensions : Dimension by lazy {
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+
+        width = displayMetrics.widthPixels
+        height = displayMetrics.heightPixels
+
+        Dimension(width.toFloat(),height.toFloat())
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -88,6 +103,11 @@ abstract class ProfileActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
         registerListeners()
     }
 
+    override fun onEnterAnimationComplete() {
+        super.onEnterAnimationComplete()
+        revealUserProfile(null)
+    }
+
     override fun finish() {
         concealUserProfile {
             super.finish()
@@ -99,11 +119,6 @@ abstract class ProfileActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
         if (revealEnded) {
             super.onBackPressed()
         }
-    }
-
-    override fun onEnterAnimationComplete() {
-        super.onEnterAnimationComplete()
-        revealUserProfile(null)
     }
 
     private fun initComponents(){
@@ -151,14 +166,14 @@ abstract class ProfileActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
     }
 
     private fun registerListeners() {
-        ProfileUtility.addIconTouchFeedback(user_message, user_message, 1f, user_message.translationZ, 1f, 1f, 0.95f, 1f, 150)
-        user_message.setOnClickListener { _ -> controller.handleOpenChat() }
+        ProfileUtility.addIconTouchFeedback(user_message, user_message, 1f, user_message.translationZ, 1f, 1f, 0.9f, 1f, 150)
+        user_message.setOnClickListener { _ -> if(!blockInput)controller.handleOpenChat() }
 
         ProfileUtility.addIconTouchFeedback(user_rank, user_rank, 1f, user_rank.translationZ, user_rank.translationZ, 1f, 0.95f, 1f, 150)
-        user_rank.setOnClickListener{ _ -> controller.handleSeeRankAction() }
+        user_rank.setOnClickListener{ _ -> if(!blockInput)controller.handleSeeRankAction() }
 
         ProfileUtility.addIconTouchFeedback(more_action, more_action, 1f, 1f, 1f, 1f, 0.95f, 1f, 150)
-        more_action.setOnClickListener{ _ -> controller.handleMoreAction() }
+        more_action.setOnClickListener{ _ -> if(!blockInput)controller.handleMoreAction() }
 
         userInformationSegment.registerListeners()
         userInteractionSegment.registerListeners()
@@ -181,7 +196,7 @@ abstract class ProfileActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
             }
         }
 
-        val duration = 350
+        val duration = 350L
 
         backdrop_temp.animate()
                 .translationY(0f)
@@ -208,7 +223,7 @@ abstract class ProfileActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
             backdrop_temp.visibility = View.INVISIBLE
             backdrop.visibility = View.VISIBLE
             revealEnded = true
-
+            blockInput = false
             action?.invoke()
         })
 
@@ -228,12 +243,14 @@ abstract class ProfileActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
         user_message.animate()
                 .scaleY(1f)
                 .scaleX(1f)
-                .setDuration(duration.toLong())
+                .setStartDelay(100)
+                .setDuration(duration)
                 .setInterpolator(OvershootInterpolator())
                 .start()
     }
 
     private fun concealUserProfile(action: Action?) {
+        blockInput = true
         if (percentage < 50) {
             backdrop_temp.visibility = View.VISIBLE
             backdrop.visibility = View.INVISIBLE
@@ -275,23 +292,56 @@ abstract class ProfileActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
                 .start()
     }
 
+    fun showProfileInteractionArea(state: Boolean){
+        userInteractionSegment.show(state)
+    }
+
+    fun showProfileStatisticsArea(state: Boolean){
+        userInformationSegment.show(state)
+    }
+
     fun addProfileTab(vararg fragment : ProfileFragment){
         fragments.addAll(fragment)
         tabsAdapter.notifyDataSetChanged()
+
+        if (fragments.size <= 3) {
+            tab_layout.tabMode = TabLayout.MODE_FIXED
+            tab_layout.tabGravity = TabLayout.GRAVITY_FILL
+        }else{
+            tab_layout.tabMode = TabLayout.MODE_SCROLLABLE
+            tab_layout.tabGravity = TabLayout.GRAVITY_FILL
+        }
+
+        if (fragments.size <= 1) {
+            tab_layout.visibility = View.GONE
+        } else {
+            tab_layout.visibility = View.VISIBLE
+        }
+
     }
 
     fun getFab() : FloatingActionButton = user_message
 
-    fun getProfileController() : ProfileController  = controller
+    internal fun getProfileController() : ProfileController  = controller
 
-    fun getViewPager() : ViewPager = pager
+    internal fun getViewPager() : ViewPager = pager
 
-    fun getAppBarLayout() : AppBarLayout = app_bar
+    internal fun getAppBarLayout() : AppBarLayout = app_bar
 
     fun setProfileInformation(userInformation : UserInformation){
         this.userInformation = userInformation
 
-        (profile_image as ImageView).setImageBitmap(userInformation.userImage)
+        userInformation.userImage?.let {
+            (profile_image as ImageView).setImageBitmap(it)
+        }
+
+        userInformation.backdropImage?.let {
+            (backdrop as ImageView).setImageBitmap(it)
+            (backdrop_temp as ImageView).setImageBitmap(it)
+        }
+
+        user_name.text = userInformation.userName
+        user_bio.text = userInformation.userBio
     }
 
     override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
@@ -355,12 +405,21 @@ abstract class ProfileActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
         }else if(scrollOffsetY < 0){
             super.dispatchTouchEvent(event)
         }else{
-            false
+            true
         }
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout, offsetY: Int) {
         this.scrollOffsetY = offsetY
+
+        if(offsetY != 0){
+            if(backdrop_temp.visibility == View.VISIBLE){
+                backdrop_temp.alpha = 0f
+                backdrop.visibility = View.VISIBLE
+            }
+        }else{
+            backdrop_temp.alpha = 1f
+        }
 
         if (maxScrollSize == 0)
             maxScrollSize = appBarLayout.totalScrollRange
