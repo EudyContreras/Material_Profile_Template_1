@@ -9,6 +9,7 @@
     android:paddingStart="@dimen/activity_horizontal_margin"
     android:clipToPadding="false"
     android:clipChildren="false"
+    style="@style/MaterialProfileTheme"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.eudycontreras.materialprofiletemplatelibrary1.curstomViews.SquareFrameLayout

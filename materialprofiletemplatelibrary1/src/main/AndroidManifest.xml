@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eudycontreras.materialprofiletemplatelibrary1">
 
-    <application
-            android:theme="@style/MaterialProfileTheme"/>
+
 
 </manifest>

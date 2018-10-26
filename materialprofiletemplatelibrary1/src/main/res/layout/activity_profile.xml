@@ -6,9 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
+    style="@style/MaterialProfileTheme"
     android:id="@+id/root"
     tools:ignore="ExtraText"
     tools:context=".ProfileActivity">
+
 
 
     <ImageView
